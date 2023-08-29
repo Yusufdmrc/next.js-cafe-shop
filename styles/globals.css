@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Roboto:wght@400;700&display=swap");
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: var(--roboto);
+}
+
+:root {
+  --primary-color: #721414;
+  --secondary-color: #287c89;
+  --roboto: "Roboto", sans-serif;
+  --sans: "Open Sans", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+ul {
+  list-style: none;
+}
+
+.button {
+  padding: 0.7rem;
+  border-radius: 2rem;
+  border: none;
+  color: #fff;
+  background-color: var(--primary-color);
+  cursor: pointer;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
