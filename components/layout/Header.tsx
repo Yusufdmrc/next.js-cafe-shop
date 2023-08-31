@@ -3,13 +3,24 @@ import styles from "../../styles/layout/Header.module.css";
 import { BiSolidUser } from "react-icons/bi";
 import { FaShoppingCart } from "react-icons/fa";
 import { ImSearch } from "react-icons/im";
+import { useState } from "react";
+import SearchModal from "../ui/SearchModal";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { RiCloseCircleFill } from "react-icons/ri";
 
-const Header = () => {
+const Header: React.FC = () => {
+  const [isModal, setIsModal] = useState<boolean>(false);
+  const [isHamburgerMenu, setIsHamburgerMenu] = useState<boolean>(false);
+
   return (
     <div className={styles.container}>
       <div className={styles.navbar}>
         <Logo />
-        <nav className={styles.nav}>
+        <nav
+          className={`${styles.nav} ${
+            isHamburgerMenu === true && styles.navHidden
+          } `}
+        >
           <ul className={styles.ul}>
             <li className={styles.li}>
               <a href="">Ana Sayfa</a>
@@ -32,9 +43,23 @@ const Header = () => {
           <a href="#">
             <FaShoppingCart />
           </a>
-          <a href="#">
+          <a onClick={() => setIsModal(!isModal)} href="#">
             <ImSearch />
           </a>
+          <a
+            className={styles.hamburger}
+            onClick={() => setIsHamburgerMenu(!isHamburgerMenu)}
+          >
+            <GiHamburgerMenu />
+          </a>
+          {isHamburgerMenu && (
+            <a
+              onClick={() => setIsHamburgerMenu(!isHamburgerMenu)}
+              className={styles.closeIcon}
+            >
+              <RiCloseCircleFill size={18} />
+            </a>
+          )}
           <div className={styles.btn}>
             <a href="#">
               <button className="button">Sipariş Ver</button>
@@ -42,6 +67,7 @@ const Header = () => {
           </div>
         </div>
       </div>
+      {isModal && <SearchModal isModal={isModal} setIsModal={setIsModal} />}
     </div>
   );
 };

@@ -1,0 +1,5 @@
+.addClass {
+  font-weight: bold;
+  font-family: var(--sans);
+  font-size: 2.5rem;
+}

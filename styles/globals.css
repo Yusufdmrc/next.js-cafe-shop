@@ -36,7 +36,3 @@ ul {
   background-color: var(--primary-color);
   cursor: pointer;
 }
-
-.button:hover {
-  opacity: 0.9;
-}
