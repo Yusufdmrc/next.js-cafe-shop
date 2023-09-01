@@ -36,3 +36,18 @@ ul {
   background-color: var(--primary-color);
   cursor: pointer;
 }
+
+.slick-dots {
+  width: 100%;
+  display: flex !important;
+  justify-content: start;
+}
+
+.slick-dots .slick-active div {
+  background-color: var(--primary-color);
+}
+
+.slick-dots .div {
+  margin: 0 !important;
+  margin-left: 1rem !important;
+}

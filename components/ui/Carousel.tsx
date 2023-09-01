@@ -2,8 +2,26 @@ import React from "react";
 import styles from "../../styles/ui/Carousel.module.css";
 import Image from "next/image";
 import Title from "./Title";
+import Slider from "react-slick";
 
-const Carousel = () => {
+const Carousel: React.FC = () => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 10000,
+    appenDots: (dots) => (
+      <div>
+        <ul>{dots}</ul>
+      </div>
+    ),
+    customPaging: (i) => <div className={styles.dots}></div>,
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -16,15 +34,30 @@ const Carousel = () => {
           />
         </div>
       </div>
-      <div className={styles.content}>
-        <Title>Coffee and dessert shop</Title>
-        <p className={styles.p}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor culpa
-          nulla perferendis debitis obcaecati quam officiis ipsam recusandae
-          minus molestias.
-        </p>
-        <button className="button">Şimdi Sipariş Ver</button>
-      </div>
+      <Slider {...settings}>
+        <div>
+          <div className={styles.content}>
+            <Title>Coffee and dessert shop</Title>
+            <p className={styles.p}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
+              culpa nulla perferendis debitis obcaecati quam officiis ipsam
+              recusandae minus molestias.
+            </p>
+            <button className="button">Şimdi Sipariş Ver</button>
+          </div>
+        </div>
+        <div>
+          <div className={styles.content}>
+            <Title>Coffee and dessert shop 2</Title>
+            <p className={styles.p}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
+              culpa nulla perferendis debitis obcaecati quam officiis ipsam
+              recusandae minus molestias.
+            </p>
+            <button className="button">Şimdi Sipariş Ver</button>
+          </div>
+        </div>
+      </Slider>
     </div>
   );
 };

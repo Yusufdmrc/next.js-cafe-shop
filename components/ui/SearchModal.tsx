@@ -5,7 +5,12 @@ import styles from "../../styles/ui/SearchModal.module.css";
 import Image from "next/image";
 import { RiCloseCircleFill } from "react-icons/ri";
 
-const SearchModal = ({ setIsModal, isModal }) => {
+interface SearchModalProps {
+  setIsModal: React.Dispatch<React.SetStateAction<boolean>>;
+  isModal: boolean;
+}
+
+const SearchModal: React.FC<SearchModalProps> = ({ setIsModal, isModal }) => {
   return (
     <div className={styles.searchModal}>
       <OutsideClickHandler onOutsideClick={() => setIsModal(!isModal)}>
