@@ -7,13 +7,19 @@ import { useState } from "react";
 import SearchModal from "../ui/SearchModal";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RiCloseCircleFill } from "react-icons/ri";
+import { useRouter } from "next/router";
 
 const Header: React.FC = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
   const [isHamburgerMenu, setIsHamburgerMenu] = useState<boolean>(false);
+  const router = useRouter();
 
   return (
-    <div className={styles.container}>
+    <div
+      className={`${styles.container} ${
+        router.asPath === "/" ? styles.transparent : styles.secondary
+      }`}
+    >
       <div className={styles.navbar}>
         <Logo />
         <nav

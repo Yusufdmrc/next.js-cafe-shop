@@ -1,5 +1,14 @@
 .container {
   height: 5rem;
+  z-index: 50;
+  position: relative;
+}
+
+.transparent {
+  background-color: transparent;
+}
+
+.secondary {
   background-color: var(--secondary-color);
 }
 
