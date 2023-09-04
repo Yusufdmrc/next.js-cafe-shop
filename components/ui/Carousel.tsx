@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "../../styles/ui/Carousel.module.css";
 import Image from "next/image";
 import Title from "./Title";

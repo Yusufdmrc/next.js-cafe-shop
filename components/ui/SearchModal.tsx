@@ -29,7 +29,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ setIsModal, isModal }) => {
                     <Image
                       width={48}
                       height={48}
-                      src="/images/campaign.jpg"
+                      src="/images/discount.jpg"
                       alt=""
                     />
                   </div>
