@@ -4,7 +4,7 @@ import { HiShoppingCart } from "react-icons/hi";
 import Title from "./Title";
 import styles from "../../styles/ui/DiscountProduct.module.css";
 
-const DiscountProduct = () => {
+const DiscountProduct: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.image}>
