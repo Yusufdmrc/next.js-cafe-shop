@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React from "react";
 import { HiShoppingCart } from "react-icons/hi";
-import Title from "./Title";
-import styles from "../../styles/ui/DiscountProduct.module.css";
+import Title from "./ui/Title";
+import styles from "../styles/DiscountProduct.module.css";
 
 const DiscountProduct: React.FC = () => {
   return (

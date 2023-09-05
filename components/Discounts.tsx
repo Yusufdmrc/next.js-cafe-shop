@@ -1,5 +1,5 @@
 import DiscountProduct from "./DiscountProduct";
-import styles from "../../styles/ui/Discounts.module.css";
+import styles from "../styles/Discounts.module.css";
 
 const Discounts: React.FC = () => {
   return (
