@@ -3,6 +3,7 @@ import styles from "../styles/Home.module.css";
 
 import Home from "./home";
 import Header from "../components/layout/Header";
+import Input from "@/components/form/Input";
 
 export default function Index() {
   return (
@@ -15,6 +16,9 @@ export default function Index() {
       </Head>
       <Header />
       <Home />
+      <div className={styles.Input}>
+        <Input />
+      </div>
     </>
   );
 }
