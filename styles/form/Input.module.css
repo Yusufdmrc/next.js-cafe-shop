@@ -32,10 +32,6 @@
   font-size: 1rem;
 }
 
-.label:focus-within .input {
-  outline: none;
-}
-
 .label:focus-within .span {
   padding-top: 0.25rem;
   font-size: 0.75rem;

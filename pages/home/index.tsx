@@ -4,6 +4,7 @@ import Carousel from "@/components/Carousel";
 import Discounts from "@/components/Discounts";
 import Menu from "@/components/menu/Menu";
 import About from "@/components/About";
+import Reservation from "@/components/Reservation";
 
 const Index = () => {
   return (
@@ -12,6 +13,7 @@ const Index = () => {
       <Discounts />
       <Menu />
       <About />
+      <Reservation />
     </div>
   );
 };

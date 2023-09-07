@@ -38,7 +38,7 @@ const Header: React.FC = () => {
               <a href="">Hakkımızda</a>
             </li>
             <li className={styles.li}>
-              <a href=""></a>
+              <a href="">Rezervasyon</a>
             </li>
           </ul>
         </nav>
