@@ -1,10 +1,9 @@
-import Input from "../../components/form/Input";
+import Input from "@/components/form/Input";
 import Title from "@/components/ui/Title";
-import Link from "next/link";
+import { registerSchema } from "@/schema/regsiter";
 import { useFormik } from "formik";
-import { loginSchema } from "@/schema/login";
-import styles from "./login.module.css";
-import { FaGithub } from "react-icons/fa";
+import styles from "./register.module.css";
+import Link from "next/link";
 
 interface InputProps {
   id: number;
@@ -17,7 +16,7 @@ interface InputProps {
   touched: boolean | undefined;
 }
 
-const login: React.FC = () => {
+const register: React.FC = () => {
   const onSubmit = async (values: any, actions: any) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     actions.resetForm();
@@ -26,16 +25,27 @@ const login: React.FC = () => {
   const { values, handleChange, handleSubmit, errors, touched, handleBlur } =
     useFormik({
       initialValues: {
+        name: "",
         email: "",
         password: "",
+        confirmPassword: "",
       },
       onSubmit,
-      validationSchema: loginSchema,
+      validationSchema: registerSchema,
     });
 
   const inputProp: InputProps[] = [
     {
       id: 1,
+      name: "name",
+      type: "text",
+      placeholder: "İsminiz",
+      value: values.name,
+      error: errors.name,
+      touched: touched.name,
+    },
+    {
+      id: 2,
       name: "email",
       type: "email",
       placeholder: "Mail Adresiniz",
@@ -44,13 +54,22 @@ const login: React.FC = () => {
       touched: touched.email,
     },
     {
-      id: 2,
+      id: 3,
       name: "password",
       type: "password",
       placeholder: "Şifreniz",
       value: values.password,
       error: errors.password,
       touched: touched.password,
+    },
+    {
+      id: 4,
+      name: "confirmPassword",
+      type: "password",
+      placeholder: "Şifrenizi tekrar giriniz",
+      value: values.confirmPassword,
+      error: errors.confirmPassword,
+      touched: touched.confirmPassword,
     },
   ];
 
@@ -69,15 +88,9 @@ const login: React.FC = () => {
           ))}
         </div>
         <div className={styles.buttons}>
-          <button className="button">Giriş Yap</button>
-          <button className={`button || ${styles.buttonPri}`}>
-            <span className={styles.github}>
-              <FaGithub />
-            </span>
-            Github
-          </button>
-          <Link href="/auth/register">
-            <span className={styles.buttonSpan}>Hesabınız yok mu?</span>
+          <button className="button">Kayıt Ol</button>
+          <Link href="/auth/login">
+            <span className={styles.buttonSpan}>Hesabınız var mı?</span>
           </Link>
         </div>
       </form>
@@ -85,4 +98,4 @@ const login: React.FC = () => {
   );
 };
 
-export default login;
+export default register;
