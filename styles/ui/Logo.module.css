@@ -2,4 +2,5 @@
   font-size: 2rem;
   font-family: var(--roboto);
   font-weight: bold;
+  cursor: pointer;
 }

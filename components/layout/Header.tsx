@@ -8,6 +8,7 @@ import SearchModal from "../ui/SearchModal";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RiCloseCircleFill } from "react-icons/ri";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Header: React.FC = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
@@ -29,23 +30,23 @@ const Header: React.FC = () => {
         >
           <ul className={styles.ul}>
             <li className={styles.li}>
-              <a href="">Ana Sayfa</a>
+              <Link href="/">Ana Sayfa</Link>
             </li>
             <li className={styles.li}>
-              <a href="">Menü</a>
+              <Link href="/menu">Menü</Link>
             </li>
             <li className={styles.li}>
-              <a href="">Hakkımızda</a>
+              <Link href="/about">Hakkımızda</Link>
             </li>
             <li className={styles.li}>
-              <a href="">Rezervasyon</a>
+              <Link href="/reservation">Rezervasyon</Link>
             </li>
           </ul>
         </nav>
         <div className={styles.icons}>
-          <a href="#">
+          <Link href="/auth/login">
             <BiSolidUser />
-          </a>
+          </Link>
           <a href="#">
             <FaShoppingCart />
           </a>
