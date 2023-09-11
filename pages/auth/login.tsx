@@ -2,7 +2,7 @@ import Input from "../../components/form/Input";
 import Title from "@/components/ui/Title";
 import Link from "next/link";
 import { useFormik } from "formik";
-import { loginSchema } from "@/schema/login";
+import { loginSchema } from "@/schema/loginSchema";
 import styles from "./login.module.css";
 import { FaGithub } from "react-icons/fa";
 

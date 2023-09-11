@@ -1,9 +1,8 @@
-import Input from "@/components/form/Input";
+import Input from "../../components/form/Input";
 import Title from "@/components/ui/Title";
-import { registerSchema } from "@/schema/regsiterSchema";
 import { useFormik } from "formik";
-import styles from "./register.module.css";
-import Link from "next/link";
+import { adminSchema } from "@/schema/adminSchema";
+import styles from "./admin.module.css";
 
 interface InputProps {
   id: number;
@@ -16,7 +15,7 @@ interface InputProps {
   touched: boolean | undefined;
 }
 
-const register: React.FC = () => {
+const admin: React.FC = () => {
   const onSubmit = async (values: any, actions: any) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     actions.resetForm();
@@ -25,36 +24,25 @@ const register: React.FC = () => {
   const { values, handleChange, handleSubmit, errors, touched, handleBlur } =
     useFormik({
       initialValues: {
-        name: "",
-        email: "",
+        username: "",
         password: "",
-        confirmPassword: "",
       },
       onSubmit,
-      validationSchema: registerSchema,
+      validationSchema: adminSchema,
     });
 
   const inputProp: InputProps[] = [
     {
       id: 1,
-      name: "name",
+      name: "username",
       type: "text",
-      placeholder: "İsminiz",
-      value: values.name,
-      error: errors.name,
-      touched: touched.name,
+      placeholder: "Kullanıcı Adınız",
+      value: values.username,
+      error: errors.username,
+      touched: touched.username,
     },
     {
       id: 2,
-      name: "email",
-      type: "email",
-      placeholder: "Mail Adresiniz",
-      value: values.email,
-      error: errors.email,
-      touched: touched.email,
-    },
-    {
-      id: 3,
       name: "password",
       type: "password",
       placeholder: "Şifreniz",
@@ -62,21 +50,12 @@ const register: React.FC = () => {
       error: errors.password,
       touched: touched.password,
     },
-    {
-      id: 4,
-      name: "confirmPassword",
-      type: "password",
-      placeholder: "Şifrenizi tekrar giriniz",
-      value: values.confirmPassword,
-      error: errors.confirmPassword,
-      touched: touched.confirmPassword,
-    },
   ];
 
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <Title>Login</Title>
+        <Title>Admin</Title>
         <div className={styles.inputs}>
           {inputProp.map((input) => (
             <Input
@@ -88,14 +67,11 @@ const register: React.FC = () => {
           ))}
         </div>
         <div className={styles.buttons}>
-          <button className="button">Kayıt Ol</button>
-          <Link href="/auth/login">
-            <span className={styles.buttonSpan}>Hesabınız var mı?</span>
-          </Link>
+          <button className="button">Giriş Yap</button>
         </div>
       </form>
     </div>
   );
 };
 
-export default register;
+export default admin;
