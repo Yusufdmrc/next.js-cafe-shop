@@ -76,7 +76,7 @@ const register: React.FC = () => {
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <Title>Login</Title>
+        <Title>Kayıt Ol</Title>
         <div className={styles.inputs}>
           {inputProp.map((input) => (
             <Input

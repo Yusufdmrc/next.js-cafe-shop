@@ -45,11 +45,15 @@ const Header: React.FC = () => {
         </nav>
         <div className={styles.icons}>
           <Link href="/auth/login">
-            <BiSolidUser />
+            <span>
+              <BiSolidUser />
+            </span>
           </Link>
-          <a href="#">
-            <FaShoppingCart />
-          </a>
+          <Link href="/basket">
+            <span>
+              <FaShoppingCart />
+            </span>
+          </Link>
           <a onClick={() => setIsModal(!isModal)} href="#">
             <ImSearch />
           </a>

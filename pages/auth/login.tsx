@@ -57,7 +57,7 @@ const login: React.FC = () => {
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <Title>Login</Title>
+        <Title>Giriş Yap</Title>
         <div className={styles.inputs}>
           {inputProp.map((input) => (
             <Input
