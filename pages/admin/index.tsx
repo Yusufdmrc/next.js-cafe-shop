@@ -2,7 +2,7 @@ import Input from "../../components/form/Input";
 import Title from "@/components/ui/Title";
 import { useFormik } from "formik";
 import { adminSchema } from "@/schema/adminSchema";
-import styles from "./admin.module.css";
+import styles from "./login.module.css";
 
 interface InputProps {
   id: number;
