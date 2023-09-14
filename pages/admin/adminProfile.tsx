@@ -9,6 +9,7 @@ import { useState } from "react";
 import Order from "@/components/admin/Order";
 import ProductList from "@/components/admin/ProductList";
 import Category from "@/components/admin/Category";
+import Footer from "@/components/admin/Footer";
 
 const customerProfile: React.FC = () => {
   const [tabs, setTabs] = useState<number>(0);
@@ -69,6 +70,7 @@ const customerProfile: React.FC = () => {
       {tabs === 0 && <ProductList />}
       {tabs === 1 && <Order />}
       {tabs === 2 && <Category />}
+      {tabs === 3 && <Footer />}
     </div>
   );
 };

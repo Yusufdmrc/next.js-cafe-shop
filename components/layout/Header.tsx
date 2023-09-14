@@ -9,11 +9,14 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { RiCloseCircleFill } from "react-icons/ri";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 const Header: React.FC = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
   const [isHamburgerMenu, setIsHamburgerMenu] = useState<boolean>(false);
   const router = useRouter();
+
+  const basket = useSelector((state) => state.basket);
 
   return (
     <div
@@ -50,8 +53,11 @@ const Header: React.FC = () => {
             </span>
           </Link>
           <Link href="/basket">
-            <span>
+            <span className={styles.shoppingCart}>
               <FaShoppingCart />
+              <span className={styles.basketSpan}>
+                {basket.products.length}
+              </span>
             </span>
           </Link>
           <a onClick={() => setIsModal(!isModal)} href="#">
