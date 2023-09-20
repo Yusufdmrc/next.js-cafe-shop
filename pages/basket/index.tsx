@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { reset } from "@/redux/basketSlice";
 
 const basket: React.FC = () => {
-  const basket = useSelector((state:) => state.basket);
+  const basket = useSelector((state) => state.basket);
   const distpatch = useDispatch();
   return (
     <div className={styles.container}>

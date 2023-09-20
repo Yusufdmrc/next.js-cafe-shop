@@ -1,3 +1,4 @@
+import React from "react";
 import Input from "../../components/form/Input";
 import Title from "@/components/ui/Title";
 import Link from "next/link";
@@ -5,6 +6,7 @@ import { useFormik } from "formik";
 import { loginSchema } from "@/schema/loginSchema";
 import styles from "./login.module.css";
 import { FaGithub } from "react-icons/fa";
+import { useSession, signIn } from "next-auth/react";
 
 interface InputProps {
   id: number;
@@ -18,6 +20,9 @@ interface InputProps {
 }
 
 const login: React.FC = () => {
+  const { data: session } = useSession();
+  console.log(session);
+
   const onSubmit = async (values: any, actions: any) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     actions.resetForm();
@@ -69,8 +74,14 @@ const login: React.FC = () => {
           ))}
         </div>
         <div className={styles.buttons}>
-          <button className="button">Giriş Yap</button>
-          <button className={`button || ${styles.buttonPri}`}>
+          <button type="submit" className="button">
+            Giriş Yap
+          </button>
+          <button
+            type="button"
+            onClick={() => signIn("github")}
+            className={`button || ${styles.buttonPri}`}
+          >
             <span className={styles.github}>
               <FaGithub />
             </span>
