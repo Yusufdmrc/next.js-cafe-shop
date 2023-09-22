@@ -82,9 +82,9 @@ const login: React.FC = () => {
             onClick={() => signIn("github")}
             className={`button || ${styles.buttonPri}`}
           >
-            <span className={styles.github}>
+            <i className={styles.github}>
               <FaGithub />
-            </span>
+            </i>
             Github
           </button>
           <Link href="/auth/register">

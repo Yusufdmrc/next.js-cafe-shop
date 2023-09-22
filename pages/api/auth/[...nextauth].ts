@@ -1,9 +1,9 @@
-import clientPromise from "@/util/mongo";
-import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
+import clientPromise from "../../../util/mongo";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     GithubProvider({
@@ -14,4 +14,6 @@ export default NextAuth({
   pages: {
     signIn: "/auth/login",
   },
-});
+};
+
+export default NextAuth(authOptions);

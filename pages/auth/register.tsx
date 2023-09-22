@@ -4,6 +4,7 @@ import { registerSchema } from "@/schema/regsiterSchema";
 import { useFormik } from "formik";
 import styles from "./register.module.css";
 import Link from "next/link";
+import axios from "axios";
 
 interface InputProps {
   id: number;
@@ -19,7 +20,18 @@ interface InputProps {
 const register: React.FC = () => {
   const onSubmit = async (values: any, actions: any) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    actions.resetForm();
+
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/register`,
+        values
+      );
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+
+    // actions.resetForm();
   };
 
   const { values, handleChange, handleSubmit, errors, touched, handleBlur } =
@@ -88,7 +100,9 @@ const register: React.FC = () => {
           ))}
         </div>
         <div className={styles.buttons}>
-          <button className="button">Kayıt Ol</button>
+          <button className="button" type="submit">
+            Kayıt Ol
+          </button>
           <Link href="/auth/login">
             <span className={styles.buttonSpan}>Hesabınız var mı?</span>
           </Link>
