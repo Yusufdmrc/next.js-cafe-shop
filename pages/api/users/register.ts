@@ -1,8 +1,9 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import User from "../../../models/User";
 import dbConnect from "../../../util/dbConnect";
 import bcrypt from "bcryptjs";
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   await dbConnect();
   const body = req.body;
   const user = await User.findOne({ email: body.email });

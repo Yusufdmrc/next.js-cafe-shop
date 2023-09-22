@@ -1,7 +1,8 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import User from "../../../models/User";
 import dbConnect from "../../../util/dbConnect";
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   await dbConnect();
   const { method } = req;
 

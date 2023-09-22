@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import styles from "./register.module.css";
 import Link from "next/link";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 interface InputProps {
   id: number;
@@ -19,19 +20,22 @@ interface InputProps {
 
 const register: React.FC = () => {
   const onSubmit = async (values: any, actions: any) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
 
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/users/register`,
         values
       );
-      console.log(res);
+      if (res.status === 200) {
+        toast.success("Kullanıcı oluşturuldu.");
+      }
     } catch (err) {
+      toast.error("Kullanıcı oluşturulamadı");
       console.log(err);
     }
 
-    // actions.resetForm();
+    actions.resetForm();
   };
 
   const { values, handleChange, handleSubmit, errors, touched, handleBlur } =
