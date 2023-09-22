@@ -21,12 +21,16 @@ interface InputProps {
 
 const login: React.FC = () => {
   const { data: session } = useSession();
-  console.log(session);
 
   const onSubmit = async (values: any, actions: any) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    actions.resetForm();
+    const { email, password } = values;
+    let options = { redirect: false, email, password };
+    const res = await signIn("credentials", options);
+
+    // actions.resetForm();
   };
+
+  console.log(session);
 
   const { values, handleChange, handleSubmit, errors, touched, handleBlur } =
     useFormik({
