@@ -2,13 +2,27 @@ import Image from "next/image";
 import styles from "./customerProfile.module.css";
 import { FaHome, FaKey, FaMotorcycle } from "react-icons/fa";
 import { ImExit } from "react-icons/im";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Account from "@/components/customerProfile/Account";
 import Password from "@/components/customerProfile/Password";
 import Order from "@/components/customerProfile/Order";
+import { getSession, signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
-const customerProfile: React.FC = () => {
+const CustomerProfile: React.FC = ({ session }) => {
   const [tabs, setTabs] = useState<number>(0);
+  const { push } = useRouter();
+
+  const handleSignOut = () => {
+    if (confirm("Çıkmak istiyor musun?")) {
+      signOut({ redirect: false });
+      push("/auth/login");
+    }
+  };
+
+  useEffect(() => {
+    push("/auth/login");
+  }, [session, push]);
 
   return (
     <div className={styles.container}>
@@ -45,10 +59,7 @@ const customerProfile: React.FC = () => {
             <FaMotorcycle />
             <button className={styles.btn}>Siparişler</button>
           </li>
-          <li
-            onClick={() => setTabs(3)}
-            className={`${styles.li} ${tabs === 3 && styles.liActive}`}
-          >
+          <li onClick={handleSignOut} className={`${styles.li}`}>
             <ImExit />
             <button className={styles.btn}>Çıkış</button>
           </li>
@@ -61,4 +72,21 @@ const customerProfile: React.FC = () => {
   );
 };
 
-export default customerProfile;
+export async function getServerSideProps({ req }) {
+  const session = await getSession({ req });
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}
+
+export default CustomerProfile;

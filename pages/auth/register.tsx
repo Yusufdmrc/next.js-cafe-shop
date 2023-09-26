@@ -6,6 +6,7 @@ import styles from "./register.module.css";
 import Link from "next/link";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 interface InputProps {
   id: number;
@@ -18,7 +19,8 @@ interface InputProps {
   touched: boolean | undefined;
 }
 
-const register: React.FC = () => {
+const Register: React.FC = () => {
+  const { push } = useRouter();
   const onSubmit = async (values: any, actions: any) => {
     // await new Promise((resolve) => setTimeout(resolve, 2000));
 
@@ -29,6 +31,7 @@ const register: React.FC = () => {
       );
       if (res.status === 200) {
         toast.success("Kullanıcı oluşturuldu.");
+        push("/auth/login");
       }
     } catch (err) {
       toast.error("Kullanıcı oluşturulamadı");
@@ -116,4 +119,4 @@ const register: React.FC = () => {
   );
 };
 
-export default register;
+export default Register;

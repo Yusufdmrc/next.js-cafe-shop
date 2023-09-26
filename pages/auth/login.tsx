@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Input from "../../components/form/Input";
 import Title from "@/components/ui/Title";
 import Link from "next/link";
@@ -6,7 +6,8 @@ import { useFormik } from "formik";
 import { loginSchema } from "@/schema/loginSchema";
 import styles from "./login.module.css";
 import { FaGithub } from "react-icons/fa";
-import { useSession, signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 interface InputProps {
   id: number;
@@ -19,18 +20,20 @@ interface InputProps {
   touched: boolean | undefined;
 }
 
-const login: React.FC = () => {
-  const { data: session } = useSession();
+const Login: React.FC = () => {
+  const { push } = useRouter();
 
   const onSubmit = async (values: any, actions: any) => {
     const { email, password } = values;
     let options = { redirect: false, email, password };
-    const res = await signIn("credentials", options);
-
-    // actions.resetForm();
+    try {
+      const res = await signIn("credentials", options);
+      actions.resetForm();
+      push("/customerProfile");
+    } catch (err) {
+      console.log(err);
+    }
   };
-
-  console.log(session);
 
   const { values, handleChange, handleSubmit, errors, touched, handleBlur } =
     useFormik({
@@ -100,4 +103,21 @@ const login: React.FC = () => {
   );
 };
 
-export default login;
+export async function getServerSideProps({ req }) {
+  const session = await getSession({ req });
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/customerProfile",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
+
+export default Login;
