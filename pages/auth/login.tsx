@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../../components/form/Input";
 import Title from "@/components/ui/Title";
 import Link from "next/link";
@@ -6,8 +6,9 @@ import { useFormik } from "formik";
 import { loginSchema } from "@/schema/loginSchema";
 import styles from "./login.module.css";
 import { FaGithub } from "react-icons/fa";
-import { signIn, getSession } from "next-auth/react";
+import { getSession, signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 interface InputProps {
   id: number;
@@ -21,7 +22,9 @@ interface InputProps {
 }
 
 const Login: React.FC = () => {
+  const { data: session } = useSession();
   const { push } = useRouter();
+  const [currentUser, setCurrentUser] = useState<any>();
 
   const onSubmit = async (values: any, actions: any) => {
     const { email, password } = values;
@@ -29,11 +32,26 @@ const Login: React.FC = () => {
     try {
       const res = await signIn("credentials", options);
       actions.resetForm();
-      push("/customerProfile");
+      // push("/customerProfile/6511ac4b21ece6721d8262b9");
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
+        setCurrentUser(
+          res.data?.find((user) => user.email === session?.user?.email)
+        );
+        push("/customerProfile/" + currentUser?._id);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUser();
+  }, [session, push, currentUser]);
 
   const { values, handleChange, handleSubmit, errors, touched, handleBlur } =
     useFormik({
@@ -106,10 +124,13 @@ const Login: React.FC = () => {
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req });
 
-  if (session) {
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
+  const user = res.data?.find((user) => user.email === session?.user?.email);
+
+  if (session && user) {
     return {
       redirect: {
-        destination: "/customerProfile",
+        destination: "/customerProfile/" + user._id,
         permanent: false,
       },
     };

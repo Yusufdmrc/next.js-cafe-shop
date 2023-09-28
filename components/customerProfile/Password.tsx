@@ -4,6 +4,7 @@ import React from "react";
 import Title from "../ui/Title";
 import Input from "../form/Input";
 import styles from "../../styles/customerProfile/customerProfile.module.css";
+import axios from "axios";
 
 interface InputProps {
   id: number;
@@ -16,14 +17,26 @@ interface InputProps {
   touched: boolean | undefined;
 }
 
-const Password = () => {
+interface PasswordProps {
+  user: any;
+}
+
+const Password: React.FC<PasswordProps> = ({ user }) => {
   const onSubmit = async (values: any, actions: any) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    actions.resetForm();
+    try {
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${user._id}`,
+        values
+      );
+      actions.resetForm();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const { values, handleChange, handleSubmit, errors, touched, handleBlur } =
     useFormik({
+      enableReinitialize: true,
       initialValues: {
         password: "",
         confirmPassword: "",

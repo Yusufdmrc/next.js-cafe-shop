@@ -3,6 +3,7 @@ import Input from "../form/Input";
 import Title from "../ui/Title";
 import { useFormik } from "formik";
 import styles from "../../styles/customerProfile/customerProfile.module.css";
+import axios from "axios";
 
 interface InputProps {
   id: number;
@@ -14,22 +15,40 @@ interface InputProps {
   error: string | undefined;
   touched: boolean | undefined;
 }
+interface AccountProps {
+  user: {
+    name: string;
+    email: string;
+    phoneNo: string;
+    address: string;
+    job: string;
+    bio: string;
+  } | null;
+}
 
-const Account = () => {
+const Account: React.FC<AccountProps> = ({ user }) => {
   const onSubmit = async (values: any, actions: any) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${user._id}`,
+        values
+      );
+    } catch (err) {
+      console.log(err);
+    }
     actions.resetForm();
   };
 
   const { values, handleChange, handleSubmit, errors, touched, handleBlur } =
     useFormik({
+      enableReinitialize: true,
       initialValues: {
-        name: "",
-        email: "",
-        phoneNo: "",
-        address: "",
-        job: "",
-        bio: "",
+        name: user?.name,
+        email: user?.email,
+        phoneNo: user?.phoneNo,
+        address: user?.address,
+        job: user?.job,
+        bio: user?.bio,
       },
       onSubmit,
       validationSchema: customerProfileSchema,
@@ -104,7 +123,9 @@ const Account = () => {
           />
         ))}
       </div>
-      <button className="button">Güncelle</button>
+      <button className="button" type="submit">
+        Güncelle
+      </button>
     </form>
   );
 };

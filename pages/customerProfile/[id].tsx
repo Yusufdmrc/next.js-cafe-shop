@@ -6,10 +6,19 @@ import { useEffect, useState } from "react";
 import Account from "@/components/customerProfile/Account";
 import Password from "@/components/customerProfile/Password";
 import Order from "@/components/customerProfile/Order";
-import { getSession, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import axios from "axios";
 
-const CustomerProfile: React.FC = ({ session }) => {
+interface User {
+  _id: string;
+  name: string;
+  image: string;
+}
+
+const CustomerProfile: React.FC<{ user: User | null }> = ({ user }) => {
+  const { data: session } = useSession();
+
   const [tabs, setTabs] = useState<number>(0);
   const { push } = useRouter();
 
@@ -21,7 +30,9 @@ const CustomerProfile: React.FC = ({ session }) => {
   };
 
   useEffect(() => {
-    push("/auth/login");
+    if (!session) {
+      push("/auth/login");
+    }
   }, [session, push]);
 
   return (
@@ -29,13 +40,13 @@ const CustomerProfile: React.FC = ({ session }) => {
       <div className={styles.profile}>
         <div className={styles.image}>
           <Image
-            src="/images/customer1.jpg"
+            src={user.image ? user.image : "/images/customer1.jpg"}
             alt=""
             width={100}
             height={100}
             className={styles.img}
           />
-          <b className={styles.name}>Gleen Smith</b>
+          <b className={styles.name}>{user.name}</b>
         </div>
         <ul className={styles.ul}>
           <li
@@ -65,27 +76,20 @@ const CustomerProfile: React.FC = ({ session }) => {
           </li>
         </ul>
       </div>
-      {tabs === 0 && <Account />}
-      {tabs === 1 && <Password />}
+      {tabs === 0 && <Account user={user} />}
+      {tabs === 1 && <Password user={user} />}
       {tabs === 2 && <Order />}
     </div>
   );
 };
 
-export async function getServerSideProps({ req }) {
-  const session = await getSession({ req });
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/auth/login",
-        permanent: false,
-      },
-    };
-  }
+export async function getServerSideProps({ req, params }) {
+  const user = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/users/${params.id}`
+  );
 
   return {
-    props: { session },
+    props: { user: user ? user.data : null },
   };
 }
 
