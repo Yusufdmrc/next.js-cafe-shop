@@ -45,6 +45,7 @@ const CustomerProfile: React.FC<{ user: User | null }> = ({ user }) => {
             width={100}
             height={100}
             className={styles.img}
+            priority
           />
           <b className={styles.name}>{user.name}</b>
         </div>

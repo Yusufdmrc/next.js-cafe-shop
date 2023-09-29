@@ -15,6 +15,7 @@ const MenuItem: React.FC = () => {
               layout="fill"
               objectFit="cover"
               className={styles.img}
+              priority
             />
           </div>
         </Link>

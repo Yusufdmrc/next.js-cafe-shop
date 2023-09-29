@@ -97,6 +97,7 @@ const Index = () => {
           alt="productImage"
           layout="fill"
           objectFit="contain"
+          priority
         />
       </div>
       <div className={styles.content}>

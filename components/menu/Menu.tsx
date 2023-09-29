@@ -1,17 +1,27 @@
+import { useState } from "react";
 import styles from "../../styles/menu/Menu.module.css";
 import Title from "../ui/Title";
 import MenuItem from "./MenuItem";
 
-const Menu: React.FC = () => {
+const Menu: React.FC = ({ categoryList }) => {
+  const [active, setActive] = useState(0);
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         <Title addClass="title">Menümüz</Title>
         <div className={styles.buttons}>
-          <button className={styles.mainButton}>Hepsi</button>
-          <button className={styles.button}>Yemek</button>
-          <button className={styles.button}>Tatlı</button>
-          <button className={styles.button}>Kahve</button>
+          {categoryList &&
+            categoryList.map((category, index) => (
+              <button
+                key={category._id}
+                className={`${styles.mainButton} ${
+                  index === active && styles.activeButton
+                }`}
+                onClick={() => setActive(index)}
+              >
+                {category.title}
+              </button>
+            ))}
         </div>
       </div>
       <div className={styles.menuItem}>

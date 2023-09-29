@@ -31,6 +31,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ setIsModal, isModal }) => {
                       height={48}
                       src="/images/discount.jpg"
                       alt=""
+                      priority
                     />
                   </div>
                   <span className={styles.span}>Donut</span>
@@ -42,6 +43,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ setIsModal, isModal }) => {
                       width={48}
                       height={48}
                       src="/images/campaign.jpg"
+                      priority
                       alt=""
                     />
                   </div>
@@ -54,6 +56,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ setIsModal, isModal }) => {
                       width={48}
                       height={48}
                       src="/images/campaign.jpg"
+                      priority
                       alt=""
                     />
                   </div>

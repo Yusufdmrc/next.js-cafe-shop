@@ -30,6 +30,7 @@ const Carousel: React.FC = () => {
             alt=""
             layout="fill"
             objectFit="cover"
+            priority
           />
         </div>
       </div>

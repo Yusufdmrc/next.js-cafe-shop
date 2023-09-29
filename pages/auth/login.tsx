@@ -45,7 +45,7 @@ const Login: React.FC = () => {
         setCurrentUser(
           res.data?.find((user) => user.email === session?.user?.email)
         );
-        push("/customerProfile/" + currentUser?._id);
+        session && push("/customerProfile/" + currentUser?._id);
       } catch (err) {
         console.log(err);
       }

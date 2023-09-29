@@ -13,6 +13,7 @@ const About: React.FC = () => {
               alt="about-img"
               layout="fill"
               className={styles.img}
+              priority
             />
           </div>
         </div>

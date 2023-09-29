@@ -6,12 +6,12 @@ import Menu from "@/components/menu/Menu";
 import About from "@/components/About";
 import Reservation from "@/components/Reservation";
 
-const Index = () => {
+const Index = ({ categoryList }) => {
   return (
     <div className={styles.home}>
       <Carousel />
       <Discounts />
-      <Menu />
+      <Menu categoryList={categoryList} />
       <About />
       <Reservation />
     </div>

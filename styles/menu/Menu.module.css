@@ -16,13 +16,16 @@
 }
 
 .mainButton {
-  background-color: var(--secondary-color);
-  color: #fff;
   padding: 0.5rem;
   margin: 1rem;
   border-radius: 3rem;
   border: none;
   cursor: pointer;
+}
+
+.activeButton {
+  background-color: var(--secondary-color);
+  color: #fff;
 }
 
 .button {

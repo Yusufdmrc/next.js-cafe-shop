@@ -37,6 +37,7 @@ const basket: React.FC = () => {
                       width={50}
                       height={50}
                       alt="image"
+                      priority
                     />
                     <span>{product.name}</span>
                   </td>

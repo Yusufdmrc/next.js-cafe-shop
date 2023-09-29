@@ -13,6 +13,7 @@ const DiscountProduct: React.FC = () => {
           alt=""
           layout="fill"
           objectFit="cover"
+          priority
         />
       </div>
       <div className={styles.content}>
