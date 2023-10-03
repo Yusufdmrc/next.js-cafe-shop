@@ -1,0 +1,146 @@
+.productModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 50;
+}
+
+.productModal::after {
+  content: "";
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.6;
+  display: grid;
+  place-content: center;
+}
+
+.grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-content: center;
+  position: relative;
+}
+
+.searchTitle {
+  position: relative;
+  z-index: 50;
+  width: 32rem;
+  background-color: #fff;
+  border-width: 2px;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+.addProductTitle {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.addSection {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.span {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.titleText {
+  border-width: 1px;
+  padding: 0.25rem;
+  outline: none;
+}
+
+.textarea {
+  border-width: 1px;
+  padding: 0.25rem;
+  outline: none;
+}
+
+.categorySelect {
+  border-width: 1px;
+  padding: 0.25rem;
+  outline: none;
+}
+
+.addSize {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.inputsSize {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.inputSize {
+  padding: 0.25rem;
+  padding-left: 0;
+  outline: none;
+  width: 9rem;
+  margin: 0.25rem;
+}
+
+.inputExtra {
+  display: flex;
+  gap: 1.5rem;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.ingredients {
+  margin-top: 0.25rem;
+}
+
+.ingredient {
+  display: inline-block;
+  border: 1px solid #1b768c;
+  color: #1b768c;
+  border-radius: 1rem;
+  padding: 0.25rem;
+  font-size: 0.8rem;
+  margin: 0.25rem 0.5rem;
+}
+
+.create {
+  display: flex;
+  justify-content: end;
+  margin-right: 6rem;
+}
+
+.createButton {
+  padding: 0.7rem;
+  border-radius: 2rem;
+  border: none;
+  color: #fff;
+  background-color: skyblue;
+  cursor: pointer;
+}
+
+.cancelButton {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background-color: #fff;
+  border: none;
+}

@@ -13,9 +13,11 @@ import Footer from "@/components/admin/Footer";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import AddProduct from "../../components/admin/AddProduct";
 
 const adminProfile: React.FC = () => {
   const [tabs, setTabs] = useState<number>(0);
+  const [isProductModal, setIsProductModal] = useState<boolean>(false);
   const { push } = useRouter();
 
   const closeAdmin = async () => {
@@ -89,6 +91,10 @@ const adminProfile: React.FC = () => {
       {tabs === 1 && <Order />}
       {tabs === 2 && <Category />}
       {tabs === 3 && <Footer />}
+      {isProductModal && <AddProduct setIsProductModal={setIsProductModal} />}
+      <button className={styles.plus} onClick={() => setIsProductModal(true)}>
+        +
+      </button>
     </div>
   );
 };
