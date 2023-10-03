@@ -77,7 +77,7 @@ const AddProduct: React.FC<SearchModalProps> = ({ setIsProductModal }) => {
               <span className={styles.span}>Ekstra</span>
               <div className={styles.inputExtra}>
                 <input
-                  type="number"
+                  type="text"
                   placeholder="malzeme"
                   className={styles.inputSize}
                 />

@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
-const CategorySchema = new mongoose.Schema(
+interface ICategory extends Document {
+  title: string;
+}
+
+const CategorySchema = new mongoose.Schema<ICategory>(
   {
     title: {
       type: String,
@@ -12,4 +16,4 @@ const CategorySchema = new mongoose.Schema(
 );
 
 export default mongoose.models.Category ||
-  mongoose.model("Category", CategorySchema);
+  mongoose.model<ICategory>("Category", CategorySchema);
