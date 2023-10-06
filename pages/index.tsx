@@ -8,11 +8,17 @@ interface Category {
   title: string;
 }
 
-interface IndexProps {
-  categoryList: Category[];
+interface Product {
+  _id: string;
+  category: string;
 }
 
-export default function Index({ categoryList }: IndexProps) {
+interface IndexProps {
+  categoryList: Category[];
+  productList: Product[];
+}
+
+export default function Index({ categoryList, productList }: IndexProps) {
   return (
     <>
       <Head>
@@ -28,7 +34,7 @@ export default function Index({ categoryList }: IndexProps) {
           referrerpolicy="no-referrer"
         />
       </Head>
-      <Home categoryList={categoryList} />
+      <Home categoryList={categoryList} productList={productList} />
     </>
   );
 }
@@ -37,9 +43,13 @@ export const getServerSideProps = async () => {
   const res = await axios.get<Category[]>(
     `${process.env.NEXT_PUBLIC_API_URL}/categories`
   );
+  const product = await axios.get<Product[]>(
+    `${process.env.NEXT_PUBLIC_API_URL}/products`
+  );
   return {
     props: {
       categoryList: res.data ? res.data : [],
+      productList: product.data ? product.data : [],
     },
   };
 };

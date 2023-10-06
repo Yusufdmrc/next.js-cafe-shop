@@ -7,21 +7,35 @@ interface Category {
   title: string;
 }
 
-const Index = ({ categoryList }) => {
+interface Product {
+  _id: string;
+  category: string;
+}
+
+interface IndexProps {
+  categoryList: Category[];
+  productList: Product[];
+}
+
+const Index: React.FC<IndexProps> = ({ categoryList, productList }) => {
   return (
     <div>
-      <Menu categoryList={categoryList} />
+      <Menu categoryList={categoryList} productList={productList} />
     </div>
   );
 };
 
 export const getServerSideProps = async () => {
-  const res = await axios.get<Category[]>(
+  const category = await axios.get<Category[]>(
     `${process.env.NEXT_PUBLIC_API_URL}/categories`
+  );
+  const product = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/products`
   );
   return {
     props: {
-      categoryList: res.data ? res.data : [],
+      categoryList: category.data ? category.data : [],
+      productList: product.data ? product.data : [],
     },
   };
 };

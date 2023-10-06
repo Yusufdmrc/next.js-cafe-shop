@@ -1,10 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../styles/menu/Menu.module.css";
 import Title from "../ui/Title";
 import MenuItem from "./MenuItem";
 
-const Menu: React.FC = ({ categoryList }) => {
-  const [active, setActive] = useState(0);
+interface MenuProps {
+  categoryList: { _id: string; title: string }[];
+  productList: { _id: string; category: string }[];
+}
+
+const Menu: React.F<MenuProps> = ({ categoryList, productList }) => {
+  const [active, setActive] = useState<number>(0);
+  const [filter, setFilter] = useState<{ _id: string; category: string }[]>([]);
+
+  useEffect(() => {
+    setFilter(
+      productList.filter(
+        (product) =>
+          product.category === categoryList[active].title.toLowerCase()
+      )
+    );
+  }, [productList, categoryList, active]);
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -25,13 +41,10 @@ const Menu: React.FC = ({ categoryList }) => {
         </div>
       </div>
       <div className={styles.menuItem}>
-        <MenuItem />
-        <MenuItem />
-        <MenuItem />
-        <MenuItem />
-        <MenuItem />
-        <MenuItem />
-        <MenuItem />
+        {filter.length > 0 &&
+          filter.map((product) => (
+            <MenuItem key={product._id} product={product} />
+          ))}
       </div>
     </div>
   );

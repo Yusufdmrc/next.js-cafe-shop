@@ -3,14 +3,14 @@ import styles from "../../styles/menu/MenuItem.module.css";
 import { LuShoppingCart } from "react-icons/lu";
 import Link from "next/link";
 
-const MenuItem: React.FC = () => {
+const MenuItem: React.FC = ({ product }) => {
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
         <Link href="/productDetail">
           <div className={styles.imageWrapper}>
             <Image
-              src="/images/menuItem.jpg"
+              src={product.img}
               alt="image"
               layout="fill"
               objectFit="cover"
@@ -21,13 +21,10 @@ const MenuItem: React.FC = () => {
         </Link>
       </div>
       <div className={styles.content}>
-        <h4 className={styles.h4}>Cheescake</h4>
-        <p className={styles.p}>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus, cum
-          praesentium adipisci qui voluptate suscipit.
-        </p>
+        <h4 className={styles.h4}>{product.title}</h4>
+        <p className={styles.p}>{product.desc}</p>
         <div className={styles.price}>
-          <span>150TL</span>
+          <span>{product.prices[0]}TL</span>
           <button className={styles.button}>
             <LuShoppingCart />
           </button>

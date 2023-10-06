@@ -6,12 +6,27 @@ import Menu from "@/components/menu/Menu";
 import About from "@/components/About";
 import Reservation from "@/components/Reservation";
 
-const Index = ({ categoryList }) => {
+interface Category {
+  _id: string;
+  title: string;
+}
+
+interface Product {
+  _id: string;
+  category: string;
+}
+
+interface IndexProps {
+  categoryList: Category[];
+  productList: Product[];
+}
+
+const Index: React.FC<IndexProps> = ({ categoryList, productList }) => {
   return (
     <div className={styles.home}>
       <Carousel />
       <Discounts />
-      <Menu categoryList={categoryList} />
+      <Menu categoryList={categoryList} productList={productList} />
       <About />
       <Reservation />
     </div>
