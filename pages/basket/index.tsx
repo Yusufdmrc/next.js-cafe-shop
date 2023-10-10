@@ -3,10 +3,52 @@ import styles from "./basket.module.css";
 import Title from "@/components/ui/Title";
 import { useDispatch, useSelector } from "react-redux";
 import { reset } from "@/redux/basketSlice";
+import { RootState } from "@/redux/store"; // Özgün bir RootState türünü içe aktarın
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
-const basket: React.FC = () => {
-  const basket = useSelector((state) => state.basket);
-  const distpatch = useDispatch();
+const Basket: React.FC = ({ userList }) => {
+  const { data: session } = useSession();
+  const basket = useSelector((state: RootState) => state.basket);
+  const dispatch = useDispatch(); //
+  const user = userList?.find((user) => user.email === session?.user?.email);
+  const router = useRouter();
+
+  const newOrder = {
+    customer: user?.name,
+    address: user?.address ? user?.address : "No address",
+    total: basket.total,
+    method: 0,
+  };
+
+  const createOrder = async () => {
+    try {
+      if (session) {
+        if (confirm("Siparişi tamamlamak istiyor musun? ")) {
+          const res = await axios.post(
+            `${process.env.NEXT_PUBLIC_API_URL}/orders`,
+            newOrder
+          );
+          if (res.status === 201) {
+            router.push(`/order/${res.data._id}`);
+            dispatch(reset());
+            toast.success("Sipariş başarıyla oluşturuldu", {
+              autoClose: 1000,
+            });
+          }
+        }
+      } else {
+        toast.error("Lütfen öncelikle giriş yapınız", {
+          autoClose: 1000,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.basketLeft}>
@@ -29,11 +71,11 @@ const basket: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {basket.products.map((product) => (
-                <tr key={product.id} className={styles.imageTr}>
+              {basket.products.map((product, index) => (
+                <tr key={index} className={styles.imageTr}>
                   <td className={styles.imageTd}>
                     <Image
-                      src="/images/menuItem.jpg"
+                      src={product?.img}
                       width={50}
                       height={50}
                       alt="image"
@@ -43,7 +85,7 @@ const basket: React.FC = () => {
                   </td>
                   <td className={styles.extras}>
                     {product.extras.map((item) => (
-                      <span key={item.id}>{item.name}</span>
+                      <span key={item.id}>{item.text}</span>
                     ))}
                   </td>
                   <td className={styles.price}>{product.price}TL</td>
@@ -55,13 +97,13 @@ const basket: React.FC = () => {
         </div>
         <div className={styles.basketRight}>
           <Title>SEPET TOPLAMI</Title>
-          <div className={styles.baskePrice}>
+          <div className={styles.basketPrice}>
             <b>Ara Toplam:</b>${basket.total}TL
             <br />
             <b className={styles.discount}>İndirim:</b>0.00TL <br />
             <b>Toplam:</b>${basket.total}
           </div>
-          <button className="button" onClick={() => distpatch(reset())}>
+          <button className="button" onClick={createOrder}>
             Şimdi Öde
           </button>
         </div>
@@ -70,4 +112,14 @@ const basket: React.FC = () => {
   );
 };
 
-export default basket;
+export const getServerSideProps = async () => {
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
+
+  return {
+    props: {
+      userList: res.data ? res.data : [],
+    },
+  };
+};
+
+export default Basket;

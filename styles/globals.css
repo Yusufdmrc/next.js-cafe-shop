@@ -37,6 +37,11 @@ ul {
   cursor: pointer;
 }
 
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .slick-dots {
   width: 100%;
   display: flex !important;

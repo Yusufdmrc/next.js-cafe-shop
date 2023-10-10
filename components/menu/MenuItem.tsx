@@ -7,7 +7,7 @@ const MenuItem: React.FC = ({ product }) => {
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
-        <Link href="/productDetail">
+        <Link href={`/productDetail/${product._id}`}>
           <div className={styles.imageWrapper}>
             <Image
               src={product.img}

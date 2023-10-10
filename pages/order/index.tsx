@@ -1,7 +1,8 @@
 import Image from "next/image";
 import styles from "./order.module.css";
+import axios from "axios";
 
-const index = () => {
+const index = ({ order }) => {
   return (
     <div className={styles.order}>
       <div className={styles.container}>
@@ -25,10 +26,10 @@ const index = () => {
             </thead>
             <tbody>
               <tr className={styles.tr}>
-                <td className={styles.tdId}>124124124f2...</td>
-                <td className={styles.td}>Yusuf Demirci</td>
-                <td className={styles.td}>İstanbul</td>
-                <td className={styles.td}>120TL</td>
+                <td className={styles.tdId}>{order?._id.substring(0, 5)}</td>
+                <td className={styles.td}> {order?.customer}</td>
+                <td className={styles.td}>{order?.address}</td>
+                <td className={styles.td}>${order?.total}</td>
               </tr>
             </tbody>
           </table>
@@ -78,6 +79,18 @@ const index = () => {
       </div>
     </div>
   );
+};
+
+export const getServerSideProps = async ({ params }) => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/orders/${params.id}`
+  );
+
+  return {
+    props: {
+      order: res.data ? res.data : null,
+    },
+  };
 };
 
 export default index;
